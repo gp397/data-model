@@ -14,3 +14,30 @@ The overall aim is to demonstrate:
 ## TODO
 
 Everything
+
+## Working Demo (Runtime Model + Contract Validation)
+
+This demo builds a dynamic data model from YAML, validates data against a JSON Schema API contract, links relationships by ID, enriches with computed fields, and emits validated output.
+
+### Files
+
+- `demo/model/model.yaml`: model definition (fields, regex, relationships, computed fields)
+- `demo/contracts/api_contract.json`: API contract JSON Schema
+- `demo/data/data.yaml`: sample data
+- `src/datamodel/cli.py`: CLI runner
+
+### Run
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+PYTHONPATH=src python -m datamodel.cli \
+  --model demo/model/model.yaml \
+  --data demo/data/data.yaml \
+  --contract demo/contracts/api_contract.json \
+  --output output/demo_run
+```
+
+Outputs:
+- `output/demo_run/validated_data.json`
+- `output/demo_run/report.json`

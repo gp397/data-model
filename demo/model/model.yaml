@@ -1,0 +1,61 @@
+version: 1
+entities:
+  Teacher:
+    id_field: id
+    fields:
+      - name: id
+        type: str
+        required: true
+        regex: "^T-[0-9]{3}$"
+        description: Teacher identifier
+      - name: name
+        type: str
+        required: true
+      - name: email
+        type: str
+        required: true
+        regex: "^[^@]+@[^@]+\\.[^@]+$"
+    computed_fields:
+      - name: display_name
+        template: "{name} ({id})"
+  Student:
+    id_field: id
+    fields:
+      - name: id
+        type: str
+        required: true
+        regex: "^S-[0-9]{4}$"
+      - name: name
+        type: str
+        required: true
+      - name: year
+        type: int
+        required: true
+    computed_fields:
+      - name: short_name
+        template: "{name}-{year}"
+  Course:
+    id_field: id
+    fields:
+      - name: id
+        type: str
+        required: true
+        regex: "^C-[A-Z]{3}-[0-9]{3}$"
+      - name: title
+        type: str
+        required: true
+      - name: room
+        type: str
+        required: true
+        regex: "^R-[0-9]{2}$"
+    relationships:
+      - name: teacher_id
+        target: Teacher
+        cardinality: many_to_one
+        required: true
+        resolve_fields: [id, name, email]
+      - name: student_ids
+        target: Student
+        cardinality: many_to_many
+        required: true
+        resolve_fields: [id, name, year]
