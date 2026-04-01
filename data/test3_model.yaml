@@ -1,40 +1,29 @@
-Pupil:
+Class:
   - version: 1
     attributes:
       - name
-      - age
-      - student_id
-    relationships:
-      - type: many_to_one
-        target: Class
-        attribute: class
+      - class_id # Primary key or unique identifier for the class
 
 Tutor:
   - version: 1
     attributes:
       - name
-      - age
       - employee_id
+      - classes # This should store the class_id's of the classes they teach
     relationships:
-      - type: one_to_one
-        target: Class
-        attribute: tutor
+      - target: Class
+        type: one_to_many
+        attribute: classes # Links back to Class via class_id
+        # attribute: classes_taught  # An alternative derived attribute (it could be stored or managed through a join table or lookup but is not explicitly part of the tutor's direct attributes). This setup avoids storing class IDs directly in the tutor record, maintaining 3NF.
 
-Class:
+Student:
   - version: 1
     attributes:
       - name
-      - tutor
-      - students
+      - student_id
+      - classes # This should store the class_id's of the classes they attend
     relationships:
-      - type: one_to_one
-        target: Tutor
-        attribute: class
-  - version: 2
-    attributes:
-      - name
-      - tutor
-    relationships:
-      - type: one_to_one
-        target: Tutor
-        attribute: class
+      - target: Class
+        type: many_to_many
+        attribute: classes # Links back to Class via class_id
+        # attribute: classes_attended  # An alternative derived attribute (it could be stored or managed through a join table or lookup but is not explicitly part of the students's direct attributes). This setup avoids storing class IDs directly in the student record, maintaining 3NF.

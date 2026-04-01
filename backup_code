@@ -1,0 +1,47 @@
+# Function to generate dynamic models and attach validators
+def generate_pydantic_classes_with_validation(yaml_file):
+    with open(yaml_file, 'r') as file:
+        model_data = yaml.safe_load(file)
+
+    classes = {}
+
+    for item in model_data:
+        fields = {}
+        relationships = {}
+        class_name = item['name']
+
+        # Define fields
+        fields = {
+            field['name']: (field['type'], None) if field['type'].startswith('Optional') else (field['type'], ...) 
+                for field in item['fields']
+        }
+
+        # Define relationships (optional)
+        if 'relationships' in item:
+            relationships = {
+                relationship['attribute']: (List[classes[relationship['target']]], ...)
+                if relationship['schema'] == 'many_to_many' else (classes[relationship['target']], ...)
+                for relationship in item['relationships']
+            }
+
+        # Combine fields and relationships
+        fields.update(relationships)
+
+        # Create the dynamic model
+        dynamic_class = create_model(class_name, **fields)
+
+        # Add custom validators for class relationships in Tutor and Student
+        if 'classes' in fields:
+            @field_validator('classes')
+            @classmethod
+            def resolve_class_ids(cls, v):
+                # Resolve class IDs to Class objects
+                if isinstance(v, list):
+                    return [ValidIDStore.get_class(class_id) for class_id in v]
+                return v
+
+            setattr(dynamic_class, 'resolve_class_ids', resolve_class_ids)
+
+        classes[class_name] = dynamic_class
+
+    return classes

@@ -1,0 +1,40 @@
+Pupil:
+  - version: 1
+    attributes:
+      - name
+      - age
+      - student_id
+    relationships:
+      - type: many_to_one
+        target: Class
+        attribute: class
+
+Tutor:
+  - version: 1
+    attributes:
+      - name
+      - age
+      - employee_id
+    relationships:
+      - type: one_to_one
+        target: Class
+        attribute: tutor
+
+Class:
+  - version: 1
+    attributes:
+      - name
+      - tutor
+      - students
+    relationships:
+      - type: one_to_one
+        target: Tutor
+        attribute: class
+  - version: 2
+    attributes:
+      - name
+      - tutor
+    relationships:
+      - type: one_to_one
+        target: Tutor
+        attribute: class

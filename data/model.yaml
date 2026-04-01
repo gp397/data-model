@@ -1,0 +1,38 @@
+- name: Class
+  fields:
+    - name: version
+      type: int
+    - name: name
+      type: str
+    - name: id
+      type: int
+
+- name: Tutor
+  fields:
+    - name: version
+      type: int
+    - name: name
+      type: str     
+    - name: id
+      type: int
+  relationships:
+    - schema: one_to_many   # A Tutor can be related to many Classes
+      target: Class         # The related model is 'Class'
+      attribute: Class      # This refers to a field in Tutor that holds class IDs
+      type: List[int]       # The type is a list of integers, representing class IDs
+      reference_field: id   # Explicitly specifying the reference field in the target model
+
+- name: Student
+  fields:
+    - name: version
+      type: int  
+    - name: name
+      type: str
+    - name: id
+      type: int
+  relationships:
+    - schema: many_to_many  # Many Students can be related to many Classes
+      target: Class         # The related model is 'Class'
+      attribute: Class      # This refers to a field in Student that holds class IDs
+      type: List[int]       # The type is a list of integers, representing class IDs
+      reference_field: id   # Explicitly specifying the reference field in the target model

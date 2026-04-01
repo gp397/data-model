@@ -1,0 +1,48 @@
+Class:
+  - version: 1
+    name: Class 1
+    id: 1
+  - version: 1
+    name: Class 2
+    id: 2
+
+Tutor:
+  - version: 1
+    name: Tutor 1
+    id: 1
+    Class:
+      - 1
+  - version: 1
+    name: Tutor 2
+    id: 2
+    Class:
+      - 2
+      - 3
+
+Student:
+  - version: 1
+    name: Pupil 1
+    id: 1
+    Class:
+      - 1
+  - version: 1
+    name: Pupil 2
+    id: 2
+    Class:
+      - 2
+  - version: 1
+    name: Pupil 3
+    id: 3
+    Class:
+      - 1
+      - 2
+  - version: 1
+    name: Pupil 4
+    id: 4
+    Class:
+      - 2
+  - version: 1
+    name: Pupil 5
+    id: 5
+    Class:
+      - 3
