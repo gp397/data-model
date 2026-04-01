@@ -1,0 +1,23 @@
+How to run the demo
+
+1) Activate venv
+source .venv/bin/activate
+
+2) Install dependencies
+pip install -r requirements.txt
+
+3) Run the pipeline
+PYTHONPATH=src python -m datamodel.cli \
+  --model demo/model/model.yaml \
+  --data demo/data/data.yaml \
+  --contract demo/contracts/api_contract.json \
+  --output output/demo_run
+
+Outputs:
+- output/demo_run/validated_data.json
+- output/demo_run/report.json
+
+Run tests
+
+source .venv/bin/activate
+python -m pytest

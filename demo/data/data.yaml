@@ -1,0 +1,30 @@
+Teacher:
+  - id: T-001
+    name: Alice Park
+    email: alice.park@example.edu
+  - id: T-002
+    name: Bruno Silva
+    email: bruno.silva@example.edu
+
+Student:
+  - id: S-1001
+    name: Priya Shah
+    year: 1
+  - id: S-1002
+    name: Jamal Reed
+    year: 2
+  - id: S-1003
+    name: Sofia Chen
+    year: 3
+
+Course:
+  - id: C-MTH-101
+    title: Intro to Algebra
+    room: R-12
+    teacher_id: T-001
+    student_ids: [S-1001, S-1002]
+  - id: C-SCI-202
+    title: Applied Physics
+    room: R-07
+    teacher_id: T-002
+    student_ids: [S-1002, S-1003]

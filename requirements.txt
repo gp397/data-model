@@ -3,3 +3,4 @@ graphviz
 pydantic
 typing
 typing_extensions
+jsonschema
